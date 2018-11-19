@@ -111,6 +111,8 @@ public class MovieRecController implements Initializable
     }
     @FXML
     private void delete(ActionEvent event) {
+        Movie id = lstMovies.getSelectionModel().getSelectedItem();
+        movieModel.deleteMovie(id);
         
         }
 

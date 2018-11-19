@@ -17,6 +17,8 @@ import movierecsys.be.User;
 import movierecsys.bll.exception.MovieRecSysException;
 import movierecsys.bll.util.MovieSearcher;
 import movierecsys.dal.MovieDAO;
+import movierecsys.dal.RatingDAO;
+import movierecsys.dal.UserDAO;
 
 /**
  *
@@ -25,10 +27,14 @@ import movierecsys.dal.MovieDAO;
 public class MRSManager implements MRSLogicFacade {
 
     private final MovieDAO movieDAO;
+    private final RatingDAO ratingDao;
+    private final UserDAO userDao;
     private final MovieSearcher ms;
     public MRSManager()
     {
         movieDAO = new MovieDAO();
+        ratingDao = new RatingDAO();
+        userDao = new UserDAO();
         ms =new MovieSearcher();
         
     }
@@ -114,13 +120,25 @@ public class MRSManager implements MRSLogicFacade {
     @Override
     public void updateMovie(Movie movie)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            movieDAO.updateMovie(movie);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void deleteMovie(Movie movie)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            movieDAO.deleteMovie(movie);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -132,19 +150,35 @@ public class MRSManager implements MRSLogicFacade {
     @Override
     public User createNewUser(String name)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public User getUserById(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        User u = null;
+        try
+        {
+            u = userDao.getUser(id);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return u;
     }
 
     @Override
     public List<User> getAllUsers()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<User> allUsers = null;
+        try
+        {
+            allUsers = userDao.getAllUsers();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return allUsers;
     }
 
     /**

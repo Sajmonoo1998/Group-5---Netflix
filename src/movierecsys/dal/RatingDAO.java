@@ -5,12 +5,17 @@
  */
 package movierecsys.dal;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,9 +39,15 @@ public class RatingDAO
      *
      * @param rating the rating to persist.
      */
-    public void createRating(Rating rating)
+    public void createRating(Rating rating) throws IOException
     {
-        //TODO Rate movie
+        Path path = new File(RATING_SOURCE).toPath();
+        
+        try(BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.SYNC, StandardOpenOption.APPEND, StandardOpenOption.WRITE))
+        {
+            bw.newLine();
+            bw.write(rating.getMovie() + "," + rating.getUser() + "," + rating.getRating());
+        }
     }
 
     /**
@@ -90,9 +101,21 @@ public class RatingDAO
      *
      * @param rating
      */
-    public void deleteRating(Rating rating)
+    public void deleteRating(Rating rating) throws IOException
     {
-        //TODO Delete rating
+      File tmp = new File(RATING_SOURCE);
+        List<Rating> allRatings = getAllRatings();
+
+        allRatings.remove(rating);
+        OutputStream os = Files.newOutputStream(tmp.toPath(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os)))
+        {
+            for (Rating r : allRatings)
+            {
+                bw.write(r.getMovie()+","+r.getUser()+","+r.getRating());
+                bw.newLine();
+            }
+        } 
     }
 
     /**
@@ -126,10 +149,15 @@ public class RatingDAO
      * @param user The user
      * @return The list of ratings.
      */
-    public List<Rating> getRatings(User user)
+    public List<Rating> getRatings(User user) throws IOException
     {
-        //TODO Get user ratings.
-        return null;
+        List<Rating> userRatings = new ArrayList<>();
+        for (Rating rating : getAllRatings()) {
+            if(rating.getUser()==user.getId())
+                userRatings.add(rating);
+        }
+        
+        return userRatings;
     }
 
     private Rating getRatingFromLine(String line) throws NumberFormatException
