@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import movierecsys.be.Rating;
+import movierecsys.be.User;
 
 /**
  *

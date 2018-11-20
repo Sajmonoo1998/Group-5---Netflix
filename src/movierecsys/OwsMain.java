@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import movierecsys.bll.MRSManager;
 
 /**
  *
@@ -33,6 +34,11 @@ public final class OwsMain extends Application
     public static void main(String[] args)
     {
         launch(args);
+       // MRSManager mrs = new MRSManager();
+        
+       // mrs.rateMovie(movie, user, 0);
+        //}
+        
     }
 
 }

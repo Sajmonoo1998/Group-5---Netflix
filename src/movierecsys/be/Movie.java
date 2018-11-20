@@ -51,20 +51,20 @@ public class Movie
     @Override
     public String toString()
     {
-        return "Movie{" + "id=" + id + ", title=" + title + ", year=" + year + '}';
+        return "Movie{" + "id= " + id + ", title= " + title + ", year= " + year + '}';
     }
     
-    @Override
-    public boolean equals(Object obj)
-    {
-        Movie m = (Movie) obj;
-        if (getId() == m.getId())
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
-    }
+//    @Override
+//    public boolean equals(Object obj)
+//    {
+//        Movie m = (Movie) obj;
+//        if (getId() == m.getId())
+//        {
+//            return true;
+//        } else
+//        {
+//            return false;
+//        }
+//    }
 
 }
