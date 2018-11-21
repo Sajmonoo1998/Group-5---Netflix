@@ -144,13 +144,40 @@ public class MRSManager implements MRSLogicFacade {
     @Override
     public void rateMovie(Movie movie, User user, int rating)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Rating r = new Rating(movie.getId(), user.getId(), rating);
+        try
+        {
+            ratingDao.createRating(r);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public User createNewUser(String name)
     {
-        return null;
+        User u = null;
+        List<User> lu;
+        try
+        {
+            int num = 1; 
+            lu = userDao.getAllUsers();
+            for (User user : lu)
+            {
+                if (user.getId() != num)
+                {
+                    u = new User(num, name);
+                } else
+                {
+                    num++;
+                }
+            }
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return u;
     }
 
     @Override

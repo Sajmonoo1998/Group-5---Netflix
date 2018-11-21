@@ -8,8 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="MRS.jar" size="22885" download="eager" />
+    <jar href="MRS.jar" size="34824" download="eager" />
     <jar href="lib\junit-4.12.jar" size="316791" download="eager" />
+    <jar href="lib\mssql-jdbc-7.0.0.jre8.jar" size="1166240" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="MRS" >
     <param name="requiredFXVersion" value="8.0+"/>
