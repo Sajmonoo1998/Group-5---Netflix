@@ -40,10 +40,11 @@ public class MovieDbDao implements IMovieRepository
     {
         try(Connection con = conProvider.getConnection())
         {
-            String sql = "INSERT INTO Movie(year, title) VALUES(?, ?)";
+            String sql = "INSERT INTO Movies(ID,Year, Title) VALUES(?,?, ?)";
             PreparedStatement prtr = con.prepareStatement(sql);
-            prtr.setInt(1, releaseYear);
-            prtr.setString(2, title);
+            prtr.setInt(1, getHighId());
+            prtr.setInt(2, releaseYear);
+            prtr.setString(3, title);
             prtr.execute();
             Movie m = new Movie(getHighId(), releaseYear, title);
             return m;
@@ -62,7 +63,7 @@ public class MovieDbDao implements IMovieRepository
     {
         try(Connection con = conProvider.getConnection())
         {
-            String sql = "DELETE FROM Movie WHERE movieId = ?";
+            String sql = "DELETE FROM Movies WHERE ID = ?";
             PreparedStatement prtr = con.prepareStatement(sql);
             prtr.setInt(1, movie.getId());
             prtr.execute();
@@ -83,12 +84,12 @@ public class MovieDbDao implements IMovieRepository
         try (Connection con = conProvider.getConnection())
         {
             Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Movie;");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Movies;");
             while(rs.next())
             {
-                int id = rs.getInt("id");
-                int year = rs.getInt("year");
-                String title = rs.getString("title");
+                int id = rs.getInt("ID");
+                int year = rs.getInt("Year");
+                String title = rs.getString("Title");
                 Movie movie = new Movie(id, year, title);
                 movies.add(movie);
             }
@@ -107,7 +108,7 @@ public class MovieDbDao implements IMovieRepository
         {
 //            String sqlStatement = "SELECT * FROM Person";
 //            Statement statement = con.createStatement();
-            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Movie WHERE movieId = ?");
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Movies WHERE ID = ?");
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next())
@@ -129,7 +130,7 @@ public class MovieDbDao implements IMovieRepository
     {
         try (Connection con = conProvider.getConnection();)
         {
-            String sql = "UPDATE Movie SET releaseYear = ?, title = ? WHERE movieId = ?";
+            String sql = "UPDATE Movies SET Year = ?, Title = ? WHERE ID = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, movie.getYear());
             stmt.setString(2, movie.getTitle());
@@ -143,16 +144,18 @@ public class MovieDbDao implements IMovieRepository
             Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private Integer getHighId()
+    @Override
+    public Integer getHighId()
     {
         try (Connection con = conProvider.getConnection();)
         {
-            String sql = "SELECT MAX(movieId) FROM Movie";
+            String sql = "SELECT MAX(ID) FROM Movies";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            int id = rs.getInt("movieId");
-            return id + 1;
+            int id = rs.getInt("ID");
+            
+            id+=1;
+            return id;
         } catch (SQLServerException ex)
         {
             Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);

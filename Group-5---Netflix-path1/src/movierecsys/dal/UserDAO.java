@@ -12,7 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,5 +107,28 @@ public class UserDAO
         Files.copy(tmp.toPath(), new File(USER_SOURCE).toPath(), StandardCopyOption.REPLACE_EXISTING);
         Files.delete(tmp.toPath());
     }
-    
+    public User createUser(String name) throws IOException {
+        Path path = new File(USER_SOURCE).toPath();
+        int id = -1;
+        try (BufferedWriter bw = Files.newBufferedWriter(path, StandardOpenOption.SYNC, StandardOpenOption.APPEND, StandardOpenOption.WRITE)) {
+            id = getNextAvailableUserID();
+            bw.newLine();
+            bw.write(id + "," + name);
+        }
+        User sendUser = new User(id, name);
+        updateUser(sendUser);
+        return sendUser;
+    }
+
+    private int getNextAvailableUserID() throws IOException {
+        List<User> allUsers = getAllUsers();
+        int newhighID = 0;
+        for (User allUser : allUsers) {
+            if (allUsers.get(newhighID).getId() != newhighID + 1) {
+                break;
+            }
+            newhighID++;
+        }
+        return newhighID + 1;
+    }
 }

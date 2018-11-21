@@ -5,6 +5,7 @@
  */
 package movierecsys.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.Year;
 import java.util.ResourceBundle;
@@ -46,7 +47,7 @@ public class MovieRecController implements Initializable
     
     
    
-    public MovieRecController()
+    public MovieRecController() throws IOException
     {
         
         try

@@ -16,9 +16,15 @@ import movierecsys.be.Rating;
 import movierecsys.be.User;
 import movierecsys.bll.exception.MovieRecSysException;
 import movierecsys.bll.util.MovieSearcher;
+import movierecsys.dal.DalController;
 import movierecsys.dal.MovieDAO;
 import movierecsys.dal.RatingDAO;
 import movierecsys.dal.UserDAO;
+import movierecsys.dal.db.MovieDbDao;
+import movierecsys.dal.db.RatingDbDao;
+import movierecsys.dal.db.UserDbDao;
+import movierecsys.dal.exception.MrsDalException;
+import movierecsys.dal.intereface.IMovieRepository;
 
 /**
  *
@@ -30,12 +36,14 @@ public class MRSManager implements MRSLogicFacade {
     private final RatingDAO ratingDao;
     private final UserDAO userDao;
     private final MovieSearcher ms;
-    public MRSManager()
+    
+    public MRSManager() throws IOException
     {
         movieDAO = new MovieDAO();
         ratingDao = new RatingDAO();
         userDao = new UserDAO();
         ms =new MovieSearcher();
+        
         
     }
     
@@ -111,6 +119,7 @@ public class MRSManager implements MRSLogicFacade {
         Movie m = null;
         try {
             m = movieDAO.createMovie(year, title);
+           
         } catch (IOException ex) {
             Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,6 +132,8 @@ public class MRSManager implements MRSLogicFacade {
         try
         {
             movieDAO.updateMovie(movie);
+            
+            
         } catch (IOException ex)
         {
             Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,6 +146,7 @@ public class MRSManager implements MRSLogicFacade {
         try
         {
             movieDAO.deleteMovie(movie);
+            
         } catch (IOException ex)
         {
             Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -148,6 +160,7 @@ public class MRSManager implements MRSLogicFacade {
         try
         {
             ratingDao.createRating(r);
+           
         } catch (IOException ex)
         {
             Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -157,27 +170,14 @@ public class MRSManager implements MRSLogicFacade {
     @Override
     public User createNewUser(String name)
     {
-        User u = null;
-        List<User> lu;
-        try
-        {
-            int num = 1; 
-            lu = userDao.getAllUsers();
-            for (User user : lu)
-            {
-                if (user.getId() != num)
-                {
-                    u = new User(num, name);
-                } else
-                {
-                    num++;
-                }
-            }
-        } catch (IOException ex)
-        {
+        try {
+            userDao.createUser(name);
+            
+        } catch (IOException ex) {
             Logger.getLogger(MRSManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return u;
+        
+        return null;
     }
 
     @Override

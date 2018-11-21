@@ -6,7 +6,10 @@
 package movierecsys.dal;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import movierecsys.be.Movie;
 import movierecsys.be.Rating;
 import movierecsys.be.User;
@@ -23,7 +26,7 @@ import movierecsys.dal.intereface.IUserRepository;
 public class DalController implements MrsDalInterface
 {
     
-    private IMovieRepository movieRepo;
+    private final IMovieRepository movieRepo;
     private IUserRepository userRepo;
     private IRatingRepository ratingRepo;
 
@@ -49,73 +52,111 @@ public class DalController implements MrsDalInterface
     @Override
     public void deleteMovie(Movie movie) throws MrsDalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            movieRepo.deleteMovie(movie);
+        } catch (IOException ex) {
+            Logger.getLogger(DalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public List<Movie> getAllMovies() throws MrsDalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Movie> movies = new ArrayList<>();
+        try {
+            movies = movieRepo.getAllMovies();
+        } catch (IOException ex) {
+            Logger.getLogger(DalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return movies;
     }
 
     @Override
     public Movie getMovie(int id) throws MrsDalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Movie m=null;
+        try {
+            m = movieRepo.getMovie(id);
+        } catch (IOException ex) {
+            Logger.getLogger(DalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return m;
     }
 
     @Override
     public void updateMovie(Movie movie) throws MrsDalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            movieRepo.updateMovie(movie);
+        } catch (IOException ex) {
+            Logger.getLogger(DalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void createRating(Rating rating)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    ratingRepo.createRating(rating);
     }
 
     @Override
     public void deleteRating(Rating rating)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ratingRepo.deleteRating(rating);
     }
 
     @Override
     public List<Rating> getAllRatings() throws MrsDalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Rating> ratings=null;
+        try {
+            ratings = ratingRepo.getAllRatings();
+        } catch (IOException ex) {
+            Logger.getLogger(DalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ratings;
     }
 
     @Override
     public List<Rating> getRatings(User user)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Rating> userRatings;
+       userRatings= ratingRepo.getRatings(user);
+       return userRatings;
     }
 
     @Override
     public void updateRating(Rating rating) throws MrsDalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            ratingRepo.updateRating(rating);
+        } catch (IOException ex) {
+            Logger.getLogger(DalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public List<User> getAllUsers()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<User> allusers;
+        allusers=userRepo.getAllUsers();
+        return allusers;
     }
 
     @Override
     public User getUser(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return userRepo.getUser(id);
     }
 
     @Override
     public void updateUser(User user)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        userRepo.updateUser(user);
     }
+    //@Override
+     public void createUser(String name){
+     userRepo.createUser(name);
+     }
     
 }

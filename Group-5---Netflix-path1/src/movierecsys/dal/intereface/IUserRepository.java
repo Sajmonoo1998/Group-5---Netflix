@@ -33,5 +33,5 @@ public interface IUserRepository
      * @param user The updated user.
      */
     void updateUser(User user);
-    
+     public void createUser(String name);
 }

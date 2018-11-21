@@ -56,5 +56,11 @@ public interface IMovieRepository
      * @param movie The updated movie.
      */
     void updateMovie(Movie movie) throws IOException;
+
+    /**
+     *
+     * @return
+     */
+    Integer getHighId();
     
 }

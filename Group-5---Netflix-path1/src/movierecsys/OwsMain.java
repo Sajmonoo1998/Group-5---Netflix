@@ -5,11 +5,13 @@
  */
 package movierecsys;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import movierecsys.dal.db.MovieDbDao;
 
 /**
  *
@@ -25,14 +27,24 @@ public final class OwsMain extends Application
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        
+        Stage second = new Stage();
+        Parent root2 = FXMLLoader.load(getClass().getResource("/movierecsys/gui/view/MainMenuView.fxml"));
+        Scene scene2 = new Scene(root2);
+        second.setScene(scene2);
+        second.show();
     }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
-        launch(args);
+       
+//        MovieDbDao mdb=new MovieDbDao();
+//        int x =mdb.getHighId();
+//        System.out.println(x);
+         launch(args);
     }
 
 }

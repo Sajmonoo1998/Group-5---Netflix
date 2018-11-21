@@ -36,6 +36,7 @@ public class UserDbDao implements IUserRepository
         conProvider = new DbConnectionProvider();
     }
     
+    
     @Override
     public List<User> getAllUsers()
     {
@@ -87,7 +88,7 @@ public class UserDbDao implements IUserRepository
     {
 try (Connection con = conProvider.getConnection();)
         {
-            String sql = "UPDATE User SET name=? WHERE userID=?";
+            String sql = "UPDATE Users SET Name=? WHERE ID=?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, user.getName());
             stmt.setInt(2, user.getId());
@@ -99,5 +100,33 @@ try (Connection con = conProvider.getConnection();)
         {
             Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
         }    }
+    public void createUser(String name){
+    
+   
+        
+        
+        try(Connection con = conProvider.getConnection())
+        {
+             int id=0;
+        for (User u : getAllUsers()) {
+            if(u.getId()==id) id++;
+            else break;
+        }
+            String sql = "INSERT INTO Users(ID, Name) VALUES(?, ?)";
+            PreparedStatement prtr = con.prepareStatement(sql);
+            prtr.setInt(1, id);
+            prtr.setString(2, name);
+            prtr.execute();
+            
+            
+        } catch (SQLServerException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }

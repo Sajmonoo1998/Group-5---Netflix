@@ -30,7 +30,7 @@ import movierecsys.be.Movie;
 public class MovieDAO
 {
 
-    private static final String MOVIE_SOURCE = "data/movie_titles.txt";
+    private static final String MOVIE_SOURCE = "C:\\Users\\Szymon\\Desktop\\Actual java\\Group5ka-Netflix-master\\Group-5---Netflix-path1\\data\\movie_titles.txt";
 
     /**
      * Gets a list of all movies in the persistence storage.
@@ -129,22 +129,29 @@ public class MovieDAO
      */
     
     
-    public void deleteMovie(Movie movie) throws IOException
-    {
-        File tmp = new File("data/movie_titles.txt");
-        List<Movie> allMovies = getAllMovies();
-//        int ind = allMovies.indexOf(movie);
-        allMovies.remove(movie);
-        OutputStream os = Files.newOutputStream(tmp.toPath(), StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
-        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os)))
-        {
-            for (Movie mov : allMovies)
-            {
-                bw.write(mov.getId() + "," + mov.getYear() + "," + mov.getTitle());
-                bw.newLine();
+   public void deleteMovie(Movie movie) throws IOException {
+        String currentLine;
+        File inputFile = new File(MOVIE_SOURCE);
+        File tempFile = new File("data/tempMovies.txt");
+
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+        String s1 = Integer.toString(movie.getId());
+
+        while ((currentLine = reader.readLine()) != null) {
+            if (!(currentLine.split(",")[0]).contains(s1)) {
+                writer.write(currentLine);
+                writer.newLine();
             }
         }
-        
+
+        writer.close();
+        reader.close();
+
+        inputFile.delete();
+        tempFile.renameTo(inputFile);
+
     }
 
     /**
