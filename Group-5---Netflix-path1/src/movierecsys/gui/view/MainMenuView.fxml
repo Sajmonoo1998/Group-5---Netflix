@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="291.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="movierecsys.gui.controller.MainMenuController">
+   <children>
+      <Label layoutX="14.0" layoutY="51.0" text="Nickname:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="51.0" />
+      <Label layoutX="55.0" layoutY="111.0" text="Password:" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="108.0" />
+      <TextField fx:id="nameInput" layoutX="14.0" layoutY="65.0" promptText="Here comes your name" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="72.0" />
+      <PasswordField fx:id="pswInput" layoutX="184.0" layoutY="96.0" promptText="Enter password for fun" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="128.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Netflix Video Base" textAlignment="CENTER" textFill="#d70303" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font name="Book Antiqua Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginBtn" layoutX="284.0" layoutY="355.0" mnemonicParsing="false" onAction="#loginPressed" prefHeight="32.0" prefWidth="128.0" text="Login" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" />
+      <ImageView fitHeight="93.0" fitWidth="212.0" layoutX="2.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+         <image>
+            <Image url="@../../../../data/n.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
