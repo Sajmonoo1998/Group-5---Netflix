@@ -40,7 +40,7 @@ public class RatingDbDao implements IRatingRepository
  
         try(Connection con = conProvider.getConnection())
         {
-            String sql = "INSERT INTO Movie(movieId, userId, rating) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO Movie(MovieID, UserID, rating) VALUES(?, ?, ?)";
             PreparedStatement prtr = con.prepareStatement(sql);
             prtr.setInt(1, rating.getMovie());
             prtr.setInt(2, rating.getUser());
@@ -82,11 +82,11 @@ public class RatingDbDao implements IRatingRepository
         try (Connection con = conProvider.getConnection())
         {
             Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Movie;");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Movies;");
             while(rs.next())
             {
-                int movieId = rs.getInt("movieId");
-                int userId = rs.getInt("userId");
+                int movieId = rs.getInt("MovieID");
+                int userId = rs.getInt("UserID");
                 int rating = rs.getInt("rating");
                 Rating r = new Rating(movieId, userId, rating);
                 ratings.add(r);
@@ -128,7 +128,7 @@ public class RatingDbDao implements IRatingRepository
     {
         try (Connection con = conProvider.getConnection();)
         {
-            String sql = "UPDATE Rating SET userId = ?, ratings = ? WHERE movieId = ?";
+            String sql = "UPDATE Rating SET UserID = ?, rating = ? WHERE MovieID = ?";
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, rating.getUser());
             stmt.setInt(2, rating.getRating());

@@ -5,8 +5,21 @@
  */
 package movierecsys.dal.db;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import movierecsys.be.Movie;
+import movierecsys.be.Rating;
 import movierecsys.be.User;
+import movierecsys.dal.intereface.IRatingRepository;
 import movierecsys.dal.intereface.IUserRepository;
 
 /**
@@ -16,22 +29,75 @@ import movierecsys.dal.intereface.IUserRepository;
 public class UserDbDao implements IUserRepository
 {
 
+    private DbConnectionProvider conProvider;
+    
+    public UserDbDao() throws IOException
+    {
+        conProvider = new DbConnectionProvider();
+    }
+    
     @Override
     public List<User> getAllUsers()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<User> users = new ArrayList<>();
+        try (Connection con = conProvider.getConnection())
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM Users");
+            while(rs.next())
+            {
+                int ID = rs.getInt("ID");
+                String name = rs.getString("Name");
+                
+                User u = new User(ID, name);
+                users.add(u);
+            }
+
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        return users;
     }
 
     @Override
     public User getUser(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try (Connection con = conProvider.getConnection();)
+        {
+            PreparedStatement pstmt = con.prepareStatement("SELECT * FROM Users WHERE ID = ?");
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next())
+            {
+                
+                String name = rs.getString("Name");
+                User u = new User(id, name);
+                return u;
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public void updateUser(User user)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+try (Connection con = conProvider.getConnection();)
+        {
+            String sql = "UPDATE User SET name=? WHERE userID=?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1, user.getName());
+            stmt.setInt(2, user.getId());
+            stmt.execute();
+        } catch (SQLServerException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
     
 }
