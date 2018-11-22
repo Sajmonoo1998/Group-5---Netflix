@@ -149,13 +149,16 @@ public class MovieDbDao implements IMovieRepository
     {
         try (Connection con = conProvider.getConnection();)
         {
-            String sql = "SELECT MAX(ID) FROM Movies";
+            String sql = "SELECT * FROM Movies order by ID desc";
             PreparedStatement stmt = con.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            int id = rs.getInt("ID");
+            int id = 0; 
+            if ( rs.next() ){
+            id = rs.getInt(1);  
+            }
             
-            id+=1;
-            return id;
+          
+            return id+1;
         } catch (SQLServerException ex)
         {
             Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);

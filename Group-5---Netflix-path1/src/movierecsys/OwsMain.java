@@ -41,9 +41,7 @@ public final class OwsMain extends Application
     public static void main(String[] args) throws IOException
     {
        
-//        MovieDbDao mdb=new MovieDbDao();
-//        int x =mdb.getHighId();
-//        System.out.println(x);
+        
          launch(args);
     }
 
