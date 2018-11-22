@@ -23,7 +23,7 @@ public class DbConnectionProvider
 {
 
     private SQLServerDataSource ds;
-    private static final String PROP_FILE = "C:\\Users\\Szymon\\Desktop\\Actual java\\Group5ka-Netflix-master\\Group-5---Netflix-path1\\src\\movierecsys\\dal\\db\\Marek.txt";
+    private static final String PROP_FILE = "movierecsys\\dal\\db\\Marek.txt";
 
     public DbConnectionProvider() throws FileNotFoundException, IOException
     {

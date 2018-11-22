@@ -30,7 +30,7 @@ import movierecsys.be.Movie;
 public class MovieDAO
 {
 
-    private static final String MOVIE_SOURCE = "C:\\Users\\Szymon\\Desktop\\Actual java\\Group5ka-Netflix-master\\Group-5---Netflix-path1\\data\\movie_titles.txt";
+    private static final String MOVIE_SOURCE = "data\\movie_titles.txt";
 
     /**
      * Gets a list of all movies in the persistence storage.
