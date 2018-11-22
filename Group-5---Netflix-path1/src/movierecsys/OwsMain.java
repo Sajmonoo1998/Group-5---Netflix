@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import movierecsys.dal.db.MovieDbDao;
+import movierecsys.gui.controller.MovieRecController;
 
 /**
  *

@@ -158,5 +158,22 @@ public class DalController implements MrsDalInterface
      public void createUser(String name){
      userRepo.createUser(name);
      }
-    
+     
+     public List<Movie> searchedMovies(String query) {
+     List<Movie> m;
+     m=movieRepo.searchedMovies(query);
+     return m;
+     }
+    public List<Movie> searchByYear(int year) {
+     List<Movie> m;
+     m=movieRepo.searchByYear(year);
+     return m;
+     }
+    public List<Movie> searchWhole(int year,String query) {
+     List<Movie> m;
+     m=movieRepo.searchWhole(year, query);
+     return m;
+     }
+     
+     
 }

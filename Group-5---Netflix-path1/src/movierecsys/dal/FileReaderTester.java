@@ -12,8 +12,10 @@ import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import movierecsys.be.Movie;
 import movierecsys.be.Rating;
 import movierecsys.be.User;
+import movierecsys.dal.db.MovieDbDao;
 
 /**
  *
@@ -30,34 +32,31 @@ public class FileReaderTester
      */
     public static void main(String[] args) throws IOException
     {
-        RatingDAO ratingDao = new RatingDAO();
-        
-        List<Rating> ratings = ratingDao.getAllRatings();
-        for (Rating rating : ratings)
-        {
-            System.out.println("R: " + rating.getMovie()+ "," + rating.getUser() + "," + rating.getRating()); //Take a coffee break now...
+       MovieDbDao mdb = new MovieDbDao();
+       List<Movie> m = mdb.searchedMovies("red");
+        for (Movie movie : m) {
+            System.out.println(movie);
         }
-        
     }
     
     public static void createRafFriendlyRatingsFile() throws IOException
     {
-        String target = "data/user_ratings";
-        RatingDAO ratingDao = new RatingDAO();
-        List<Rating> all = ratingDao.getAllRatings();
-        
-        try (RandomAccessFile raf = new RandomAccessFile(target, "rw"))
-        {
-            for (Rating rating : all)
-            {
-                raf.writeInt(rating.getMovie());
-                raf.writeInt(rating.getUser());
-                raf.writeInt(rating.getRating());
-            }
-        } catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+//        String target = "data/user_ratings";
+//        RatingDAO ratingDao = new RatingDAO();
+//        List<Rating> all = ratingDao.getAllRatings();
+//        
+//        try (RandomAccessFile raf = new RandomAccessFile(target, "rw"))
+//        {
+//            for (Rating rating : all)
+//            {
+//                raf.writeInt(rating.getMovie());
+//                raf.writeInt(rating.getUser());
+//                raf.writeInt(rating.getRating());
+//            }
+//        } catch (IOException ex)
+//        {
+//            ex.printStackTrace();
+//        }
     }
     
 }

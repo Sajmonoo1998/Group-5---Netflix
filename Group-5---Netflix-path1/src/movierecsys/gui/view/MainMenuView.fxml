@@ -21,7 +21,7 @@
          </font>
       </Label>
       <Button fx:id="loginBtn" layoutX="284.0" layoutY="355.0" mnemonicParsing="false" onAction="#loginPressed" prefHeight="32.0" prefWidth="128.0" text="Login" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0" />
-      <ImageView fitHeight="93.0" fitWidth="212.0" layoutX="2.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="16.0">
+      <ImageView fitHeight="93.0" fitWidth="206.0" layoutX="16.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="16.0">
          <image>
             <Image url="@../../../../data/n.png" />
          </image>

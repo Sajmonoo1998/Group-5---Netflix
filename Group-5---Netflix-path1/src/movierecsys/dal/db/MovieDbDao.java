@@ -168,5 +168,106 @@ public class MovieDbDao implements IMovieRepository
         }
         return null;
     }
+
+    @Override
+    public List<Movie> searchedMovies(String query) {
+  Movie m;
+  int id;
+  int year;
+  String title;
+        try (Connection con = conProvider.getConnection();)
+        {
+            List<Movie> searchedMovies = new ArrayList();
+            //String sql = "SELECT * FROM Movies WHERE Title like "+"'%"+query+"%'";
+            String sql = "SELECT * FROM Movies WHERE Title like ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,"%"+query+"%");
+            ResultSet rs = stmt.executeQuery();
+         
+            while ( rs.next()){
+            id=rs.getInt("ID");
+            year=rs.getInt("Year");
+            title=rs.getString("Title");
+            m=new Movie(id, year, title);
+            searchedMovies.add(m);
+            }
+            return searchedMovies;
+          
+       
+        } catch (SQLServerException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+}
+    @Override 
+    public List<Movie> searchByYear(int year) {
+  Movie m;
+  int id;
+
+  String title;
+        try (Connection con = conProvider.getConnection();)
+        {
+            List<Movie> searchedMovies = new ArrayList();
+            String sql = "SELECT * FROM Movies WHERE Year = ? ";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1,year);
+            ResultSet rs = stmt.executeQuery();
+         
+            while ( rs.next()){
+            id=rs.getInt("ID");
+            title=rs.getString("Title");
+            m=new Movie(id, year, title);
+            searchedMovies.add(m);
+            }
+            return searchedMovies;
+          
+       
+        } catch (SQLServerException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+}
+    
+    @Override 
+    public List<Movie> searchWhole(int year,String query) {
+  Movie m;
+  int id;
+  
+        try (Connection con = conProvider.getConnection();)
+        {
+            List<Movie> searchedMovies = new ArrayList();
+            //String sql = "SELECT * FROM Movies WHERE Title like "+"'%"+query+"%'";
+            String sql = "SELECT * FROM Movies WHERE Title like ? AND Year = ?";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setString(1,"%"+query+"%");
+            stmt.setInt(2,year);
+            ResultSet rs = stmt.executeQuery();
+         
+            while ( rs.next()){
+            id=rs.getInt("ID"); 
+            m=new Movie(id, year, query);
+            searchedMovies.add(m);
+            }
+            return searchedMovies;
+          
+       
+        } catch (SQLServerException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(MovieDbDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+}
+    
     
 }

@@ -12,14 +12,15 @@
    <children>
       <ListView fx:id="lstMovies" layoutX="1.0" layoutY="97.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="333.0" prefWidth="471.0" />
       <TextField fx:id="query" layoutY="39.0" prefHeight="29.0" prefWidth="391.0" promptText="ID/Title of movie" />
-      <Button layoutX="313.0" layoutY="68.0" mnemonicParsing="false" onAction="#delete" prefHeight="29.0" prefWidth="157.0" text="Destroy" />
-      <Button layoutX="157.0" layoutY="68.0" mnemonicParsing="false" onAction="#add" prefHeight="29.0" prefWidth="157.0" text="Enumerate" />
-      <Button layoutX="1.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchButton" prefHeight="29.0" prefWidth="157.0" text="Quest" />
+      <Button layoutX="237.0" layoutY="68.0" mnemonicParsing="false" onAction="#delete" prefHeight="29.0" prefWidth="118.0" text="Assasinate" />
+      <Button layoutX="119.0" layoutY="68.0" mnemonicParsing="false" onAction="#add" prefHeight="29.0" prefWidth="118.0" text="Enumerate" />
+      <Button layoutX="1.0" layoutY="68.0" mnemonicParsing="false" onAction="#searchButton" prefHeight="29.0" prefWidth="118.0" text="Quest" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="106.0" maxWidth="1.7976931348623157E308" text="Netflix Video Base" textAlignment="CENTER" textFill="#d70303">
          <font>
             <Font name="Book Antiqua Bold" size="30.0" />
          </font>
       </Label>
       <ComboBox fx:id="year" layoutX="391.0" layoutY="39.0" prefHeight="29.0" prefWidth="81.0" promptText="Year" />
+      <Button layoutX="354.0" layoutY="68.0" mnemonicParsing="false" onAction="#update" prefHeight="29.0" prefWidth="118.0" text="Update" />
    </children>
 </AnchorPane>

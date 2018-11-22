@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -105,17 +106,43 @@ public class MovieRecController implements Initializable
     @FXML
     private void add(ActionEvent event) {
     if(query.getText()!=null && year!=null){
-   movieModel.createMovie(Integer.parseInt(year.getValue()), query.getText());
-        
+    movieModel.createMovie(Integer.parseInt(year.getValue()), query.getText());
+    lstMovies.getItems();
+    lstMovies.refresh();
     }
+    
    
     }
     @FXML
     private void delete(ActionEvent event) {
         Movie id = lstMovies.getSelectionModel().getSelectedItem();
         movieModel.deleteMovie(id);
-        
+        lstMovies.getItems().remove(id);
         }
+
+    @FXML
+    private void update(ActionEvent event) {
+        
+   
+    if(!(query.getText().equals("")) && year.getValue().equals("Year") ){
+        Movie id = lstMovies.getSelectionModel().getSelectedItem();
+        id.setTitle(query.getText());
+        movieModel.updateMovie(id);
+    }
+    else if( query.getText().equals("") && !(year.getValue().equals("Year")) ){ 
+        Movie id = lstMovies.getSelectionModel().getSelectedItem();
+        id.setYear(Integer.parseInt(year.getValue()));
+        movieModel.updateMovie(id);
+    
+    }
+    else if(!(query.getText().equals("")) && !(year.getValue().equals("Year")) ){
+        Movie id = lstMovies.getSelectionModel().getSelectedItem();
+    id.setTitle(query.getText());
+    id.setYear(Integer.parseInt(year.getValue()));
+    movieModel.updateMovie(id);
+    }
+    
+    }
 
    
 

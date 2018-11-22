@@ -63,4 +63,8 @@ public interface IMovieRepository
      */
     Integer getHighId();
     
+     List<Movie> searchedMovies(String query);
+     List<Movie> searchByYear(int year);
+     List<Movie> searchWhole(int year,String query);
+    
 }

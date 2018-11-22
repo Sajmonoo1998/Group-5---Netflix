@@ -114,7 +114,7 @@ public class MRSdbManager implements MRSdbLogicFacade{
 
     @Override
     public List<User> getAllUsers() {
-        List<User> allusers=null;
+        List<User> allusers;
         allusers=dalcontroller.getAllUsers();
         return allusers;
     }
@@ -133,6 +133,25 @@ public class MRSdbManager implements MRSdbLogicFacade{
     @Override
     public void createUser(String name) {
 dalcontroller.createUser(name);
+    }
+
+    @Override
+    public List<Movie> searchedMovies(String query) {
+        List<Movie> allmovies;
+        allmovies=dalcontroller.searchedMovies(query);
+        return allmovies;
+    }
+    @Override
+    public List<Movie> searchByYear(int year) {
+        List<Movie> allmovies;
+        allmovies=dalcontroller.searchByYear(year);
+        return allmovies;
+    }
+    @Override
+    public List<Movie> searchWhole(int year,String query) {
+        List<Movie> allmovies;
+        allmovies=dalcontroller.searchWhole(year, query);
+        return allmovies;
     }
     
 }

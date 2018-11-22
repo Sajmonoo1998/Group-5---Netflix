@@ -34,7 +34,9 @@ public interface MRSdbLogicFacade {
     public void updateRating(Rating rating);
     public List<User> getAllUsers();
     public User getUser(int id);
-    
     public void updateUser(User user);
-     public void createUser(String name);
+    public void createUser(String name);
+    public List<Movie> searchedMovies(String query);
+    public List<Movie> searchByYear(int year);
+    public List<Movie> searchWhole(int year,String query);
 }

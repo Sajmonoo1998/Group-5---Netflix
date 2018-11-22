@@ -23,7 +23,7 @@ public class MovieSearcher
         
         for (Movie mov : movies) {
          
-            if(mov.getTitle().replace(" ","").toLowerCase().trim().contains(query.toLowerCase())){
+           if(mov.getTitle().replace(" ","").toLowerCase().trim().contains(query.toLowerCase())){
             foundMovies.add(mov);
            }
         }
